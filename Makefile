@@ -1,11 +1,11 @@
 # Compiler and flags
 CXX := g++
-CXXFLAGS := -Wall -Wextra -Werror -pedantic -std=c++17 -Iinclude
+CXXFLAGS := -Wall -Wextra -pedantic -std=c++17 -Iinclude
 CC := gcc
 CFLAGS := -Iinclude
 
 # Linking flags
-#TODO
+LDFLAGS := -Llib -Llib/GLFW -lglfw3 -lGL -lX11 -lXrandr -lpthread -ldl
 
 # Source Files
 SRC_CXX := src/main.cpp
