@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX := g++
-CXXFLAGS := -Wall -Wextra -pedantic -std=c++17 -Iinclude
+CXXFLAGS := -Wall -Wextra -Werror -pedantic -std=c++17 -Iinclude
 CC := gcc
 CFLAGS := -Iinclude
 

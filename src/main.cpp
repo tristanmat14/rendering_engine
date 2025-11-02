@@ -1,6 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
@@ -44,14 +44,14 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "OpenGL Window", nullptr, nullptr);
-    if (!window) {
+    GLFWwindow* glfwWindow = glfwCreateWindow(WIDTH, HEIGHT, "OpenGL Window", nullptr, nullptr);
+    if (!glfwWindow) {
         std::cerr << "Failed to create GLFW window\n";
         glfwTerminate();
         return -1;
     }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwMakeContextCurrent(glfwWindow);
+    glfwSetFramebufferSizeCallback(glfwWindow, framebuffer_size_callback);
 
     // Initialize GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -105,10 +105,10 @@ int main() {
     glm::mat4 transform = glm::mat4(1.0f);
 
     // Render loop
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(glfwWindow)) {
         // Input
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, true);
+        if (glfwGetKey(glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(glfwWindow, true);
 
         // Render
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -122,7 +122,7 @@ int main() {
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
         // Swap buffers & poll events
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(glfwWindow);
         glfwPollEvents();
     }
 
@@ -130,7 +130,7 @@ int main() {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteProgram(shaderProgram);
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(glfwWindow);
     glfwTerminate();
     return 0;
 }
