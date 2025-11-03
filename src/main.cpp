@@ -3,6 +3,9 @@
 #include "glm/glm.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+#include <array>
+#include "Triangle.h"
+#include "Window.h"
 
 // Window dimensions
 const unsigned int WIDTH = 800;
@@ -76,33 +79,13 @@ int main() {
     glDeleteShader(fragmentShader);
 
     // Triangle vertices
-    float vertices[] = {
-         0.0f,  0.5f, 0.0f, // top
-        -0.5f, -0.5f, 0.0f, // left
-         0.5f, -0.5f, 0.0f  // right
+    std::array<glm::vec3, 3> vertices = {
+        glm::vec3{0.0f,  0.5f, 0.0f}, // top
+        glm::vec3{-0.5f, -0.5f, 0.0f}, // left
+        glm::vec3{0.5f, -0.5f, 0.0f}  // right
     };
 
-    unsigned int VAO, VBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-
-    // Bind VAO
-    glBindVertexArray(VAO);
-
-    // Bind and set VBO
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Vertex attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // Unbind
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-    // Transform matrix (identity)
-    glm::mat4 transform = glm::mat4(1.0f);
+    auto triangle = Triangle(vertices);
 
     // Render loop
     while (!glfwWindowShouldClose(glfwWindow)) {
